@@ -1,27 +1,54 @@
 'use strict';
 
 
+
+
+
+
+
 function pobierzDane() {
 
-    $.ajax({
-    url: "https://jsonplaceholder.typicode.com/users",
-    dataType: "json",
-    success: function (resultJSON) {
-        console.log(resultJSON);
-//        var array = [];
-//        JSON.stringify(array);
-        
-        
-        for (var i = 0; i<resultJSON.length; i++){
-            
-        var paragraf = document.createElement('p');
-         var paragrafText = document.createTextNode(' User ID: ' + resultJSON[i].id + ' User IMIE: ' + resultJSON[i].name + ' User URL: ' + resultJSON[i].website);
-         paragraf.appendChild(paragrafText);
-        document.body.appendChild(paragraf);
-            
-        }                
-    }
-});
-}
-window.onscroll = function() {pobierzDane()};
 
+    var xhttp = new XMLHttpRequest();
+    var url = "https://jsonplaceholder.typicode.com/users";
+
+    xhttp.onreadystatechange = function () {
+        'use strict';
+        if (this.readyState == 4 && this.status == 200) {
+            var pobraneDane = JSON.parse(this.responseText);
+            console.log(pobraneDane);
+
+            for (var i = 0; i < pobraneDane.length; i++) {
+
+                var paragraf = document.createElement('p');
+                var paragrafText = document.createTextNode(' User ID: ' + pobraneDane[i].id  + ' User IMIE: ' + pobraneDane[i].name + ' User URL: ' + pobraneDane[i].website);
+                paragraf.appendChild(paragrafText);
+                document.getElementById('container').appendChild(paragraf);
+
+            }
+
+
+        }
+
+    };
+
+    xhttp.open("GET", url, true);
+    xhttp.send();
+}
+
+function addElements() {
+    var scrollTop = Math.floor(document.documentElement.scrollTop); // z
+    var windowHeight = window.innerHeight; //y
+    var heightHTML = document.documentElement.offsetHeight; //x
+
+    console.log(windowHeight);
+    console.log(scrollTop);
+    console.log(heightHTML);
+
+
+    if (windowHeight + scrollTop == heightHTML) {
+        pobierzDane()
+    }
+}
+
+window.onscroll = addElements;

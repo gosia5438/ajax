@@ -3,7 +3,6 @@
 /*
 function ajax(method, url) {
     var xhttp = new XMLHttpRequest();
-    //console.log(xhttp);
 
     xhttp.open(method, url);
 

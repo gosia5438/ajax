@@ -6,6 +6,7 @@
 
 
 
+ 'use strict';
 function pobierzDane() {
 
 
@@ -13,7 +14,7 @@ function pobierzDane() {
     var url = "https://jsonplaceholder.typicode.com/users";
 
     xhttp.onreadystatechange = function () {
-        'use strict';
+       
         if (this.readyState == 4 && this.status == 200) {
             var pobraneDane = JSON.parse(this.responseText);
             console.log(pobraneDane);
